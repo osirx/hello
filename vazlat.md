@@ -79,7 +79,13 @@ nélkül, elõny, hátrány...)... Egymást kiegészítõ technikák. ->Java kö
 Absztrakt leírás arról, hogy mit, milyen eredményt várunk el. Konkrét tesztesetekre ellenõrizzük, hogy 
 ez teljesül-e. Kellõen nagy és jó mintavétel esetén jól mûködhet a teszt.
 
+
+## III. Konkrét eszközök: Vizsgált eszközök bemutatása. Mit lehet használni, szoftverek bemutatása. A barátom. :)
+
 ```
+Természetesen van olyan, amit nagyon nehéz automatizálni, pl esztétikus-e egy GUI, mennyire kényelmes használni, stb, de a 
+legtöbb tesztelési feladat jól automatizálható.
+
 Ajánlott olvasmány:
 - testNG - ez test framework, azaz egy eszköz, amiben a teszteket meg tudjuk írni, futtatni, etc
 - létezik egy csomó másik fajta teszt eszköz is, de azok vagy sokkal szűkebb, specifikus területet fednek le (pl csak funkcionális tesztelés), 
@@ -89,6 +95,5 @@ gherkin - cucumber -- functional acceptance testing
 selenium - web-es alkalmazások tesztelése az alkalmazás grafikus felületén keresztül, stbstb)
 ```
 
-## III. Konkrét eszközök: Vizsgált eszközök bemutatása. Mit lehet használni, szoftverek bemutatása. A barátom. :)
 ## IV. Vizsgált eszközök összehasonlítása, elemzése. Konklúzió: adott feladatra melyik eszköz az ajánlott.
 ## V. Összefoglaló: nagyjából a bevezetés + eredmények
