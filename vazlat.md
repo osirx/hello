@@ -3,7 +3,8 @@
 2017.11.24-25
 https://www.markdowntutorial.com/
 Ezzel gyakorlod kicsit az angolt és az md (markdown) formázással is megismerkedsz.
-
+Vagy ezt is olvashatod, ez kompaktabb:
+http://agea.github.io/tutorial.md/
 
 # A dolgozathoz väzlat
 
