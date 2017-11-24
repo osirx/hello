@@ -1,7 +1,9 @@
 # Házi feladat:
-1. Markdown text-file formázás tutorial (remélem tetszeni fog)
+
+## 1. Markdown text-file formázás tutorial (remélem tetszeni fog)
 
 2017.11.24-25
+
 https://www.markdowntutorial.com/
 
 Ezzel gyakorlod kicsit az angolt és az md (markdown) formázással is megismerkedsz.
@@ -42,9 +44,17 @@ hibát feltárjuk.->  A tesztelésnek végig kell kísérnie a teljes fejleszté
 Sikeres tesztelés nem bizonyítja, hogy a termék hibátlan, de csökkenti a hibák elõfordulásának valószínûségét.  
 Nem  jelenti automatikusan, hogy a rendszer helyes: pl. ha nem a megrendelõ elvárásait valósítja meg.
 
+```
+Ez  így tök jó eddig. :)
+```
+
 ### A) Teszttípusok: (Különféle típusok aszerint, hogy  milyen tulajdonságokat tesztel)
 
-- Funkcionális teszt: a szoftver funkcionálisan helyes-e, azt csinálja-e, amit elvárunk tõle. Fekete doboz.
+- Funkcionális teszt: a szoftver funkcionálisan helyes-e, azt csinálja-e, amit elvárunk tõle. Fekete doboz. 
+```
+Nem mindig fekete doboz. A fekete boboz teszteles az csak annyit tesz, hogy nem ismerjük a kódot, amit tesztelünk. :)
+A funkcionális teszt a program algoritmikus helyességét teszteli, azt, hogy megoldja-e a kitűzütt feladatot/problémát.
+```
 
 (Nem funkcionális teszt: a szoftver valamit hogyan csinál, mennyire felel meg adott feltétlenek, számszerûsíthetõ jellemzõk.)
 
@@ -68,6 +78,16 @@ nélkül, elõny, hátrány...)... Egymást kiegészítõ technikák. ->Java kö
 
 Absztrakt leírás arról, hogy mit, milyen eredményt várunk el. Konkrét tesztesetekre ellenõrizzük, hogy 
 ez teljesül-e. Kellõen nagy és jó mintavétel esetén jól mûködhet a teszt.
+
+```
+Ajánlott olvasmány:
+- testNG - ez test framework, azaz egy eszköz, amiben a teszteket meg tudjuk írni, futtatni, etc
+- létezik egy csomó másik fajta teszt eszköz is, de azok vagy sokkal szűkebb, specifikus területet fednek le (pl csak funkcionális tesztelés), 
+vagy nem annyira elterjedtek, vagy valami miatt nem olyan kényelmes a használatuk 
+(Pl:
+gherkin - cucumber -- functional acceptance testing
+selenium - web-es alkalmazások tesztelése az alkalmazás grafikus felületén keresztül, stbstb)
+```
 
 ## III. Konkrét eszközök: Vizsgált eszközök bemutatása. Mit lehet használni, szoftverek bemutatása. A barátom. :)
 ## IV. Vizsgált eszközök összehasonlítása, elemzése. Konklúzió: adott feladatra melyik eszköz az ajánlott.
