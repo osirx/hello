@@ -94,7 +94,7 @@ vagy nem annyira elterjedtek, vagy valami miatt nem olyan kényelmes a használa
 gherkin - cucumber -- functional acceptance testing
 selenium - web-es alkalmazások tesztelése az alkalmazás grafikus felületén keresztül, stbstb)
 ```
-##TestNG
+## TestNG
 
 * tesztelési keretrendszer
 * célja, hogy egyszerűsítse a tesztelési feladatokat
