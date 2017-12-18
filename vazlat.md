@@ -1,4 +1,4 @@
-# Házi feladat:
+﻿# Házi feladat:
 
 ## 1. Markdown text-file formázás tutorial (remélem tetszeni fog)
 
@@ -94,6 +94,56 @@ vagy nem annyira elterjedtek, vagy valami miatt nem olyan kényelmes a használa
 gherkin - cucumber -- functional acceptance testing
 selenium - web-es alkalmazások tesztelése az alkalmazás grafikus felületén keresztül, stbstb)
 ```
+##TestNG
+
+* tesztelési keretrendszer
+* célja, hogy egyszerűsítse a tesztelési feladatokat
+* alkalmazható unit teszt, integrációs teszt esetén
+
+Az annotációk a tesztfuttató számára adnak információt, amelyekkel a teszt futása szabályozható: mi fut és hogyan.
+
+* **@Test**: ez jelöli, hogy mit futtasson a tesztfuttató rendszer, innen tudja, hogy ez része a tesztnek.
+* **@BeforeClass**: egyszer fut le az összes teszt előtt, mielőtt az adott osztály első tesztmetódusa futna. (pl. konstansok beállítására)
+* **@AfterClass**: egyszer fut le, miután az osztály összes tesztje lefutott.
+* **@BeforeMethod**: minden egyes teszt előtt lefut
+* **@AfterMethod**: minden egyes teszt után lefut
+
+Az annotációkhoz attribútumok adhatóak meg, amelyekkel finomhangolhatjuk a teszt futtatását.
+
+@Test annotáció attribútumai pl.:
+
+* **alwaysRun**: igaz érték esetén a teszt metódus mindig lefut, függetlenül attól, hogy az a metódus, amitől függ, hibás, elbukott.
+* **dependsOnGroups**: csoportok listája, amitől a metódus függ. Ezzel szabályozhatjuk, hogy a metódus a csoportokban szereplő metódusok/osztályok/csoportok után kerüljön végrehajtásra
+* **dependsOnMethods**: mely metódusoktól függ, mely metódusok után kerüljön végrehajtásra a teszt.
+* **description**: a teszthez leírás adható meg, ami a teszt futása során megjelenik, információt adhat.
+* **expectedExceptions**: kivételek listája, amit elvárunk a tesztesettől. Negatív teszt. Azt vizsgáljuk, hogyan reagál hibára, kivételt kell dobnia, ha ez megtörténik, akkor átment. Ezen kivételek listája adható meg itt.
+* **groups**: csoportosíthatjuk a metódusokat, osztályokat különböző szempontok szerint. Ezeket a csoportokat aztán együtt kezelhetjük. Ezzel a paraméterrel adhatjuk meg a csoportok neveit, amikhez tartozik a annotációval jelölt metódus, osztály.
+* **invocationCount**: hányszor szükséges futtatni a metódust.
+* **timeOut**: mennyi idő alatt kell lefutnia a tesztnek. Ezredmásodpercben kell megadni. Ha ennyi idő alatt nem fut le, sikertelen.
+
+...
+
+A tesztmetódusok általában olyan hívásokat tartalmaznak, amelyek vagy kivételt dobnak, vagy az eredménnyel kapcsolatos elvárásokat írják le: adott bemenethez milyen eredményt várunk el, és ezt az elvárt eredményt hasonlítjuk össze a kapott eredménnyel (Assert osztály).
+
+Egy-egy tesztmetódust kellően nagy számú bemenet esetén szükséges vizsgálni, csökkentve a hiba valószínűségét. DataProvider használatával egyszerűen megoldható, hogy ugyanaz a teszt sokszor, különböző adatkészletekkel futtatni tudjuk.
+
+**@DataProvider** annotáció: az így jelölt metódus két dimenziós Object[][] tömböt ad vissza, amelyeket átad a rá hivatkozó tesztnek. A tömb egy sora egy teszteset paramétereit adja meg. A **@Tes**t annotáció _dataProvider_ paraméterével hivatkozhatunk a megfelelő DataProvider-re.
+
+(**@Factory** annotáció: az így jelölt metódusok visszatérési értéke egy Object[] tömb. Ha a tesztosztály konstruktora tartalmaz paramétert, abban az esetben Factory metódust alkalmazva különböző pareméterekkel példányosíthatjuk az adott tesztosztályt. A tesztosztályok példányait adja vissza; Kb. mind a DataProvider, csak osztály esetén?)
+
+
+Sikeres a teszt, ha nem dobott kivételt, vagy olyan kivételt dobott, amit elvártunk.
+
+A TestNG által nyújtott funkciók biztosítják:
+
+* jó tesztlefedettséget érjünk el azáltal, hogy könnyen írhatunk teszteket, melyeket ezután egyszerűen futtathatunk nagy számú, eltérő bemeneti értékek és elvárt eredmény esetén
+* ellenőrizhető a szoftver funkcionalitása
+* mérhető a teszt futási ideje
+* terheléses teszt végzésére alkalmas
+
+...
+
+
 
 ## IV. Vizsgált eszközök összehasonlítása, elemzése. Konklúzió: adott feladatra melyik eszköz az ajánlott.
 ## V. Összefoglaló: nagyjából a bevezetés + eredmények
