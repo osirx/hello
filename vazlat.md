@@ -142,6 +142,63 @@ A TestNG által nyújtott funkciók biztosítják:
 * terheléses teszt végzésére alkalmas
 
 ...
+## Tesztvezérelt fejlesztés 
+
+
+A tesztvezérelt fejlesztés (Test Driven Development - TDD) egy szoftverfejlesztési módszer, melynek lényeg, hogy a kódfejlesztés és a tesztírás folyamata nem válik szét, a futtatandó tesztek alapján történik a kód implementációja.
+
+A programot ciklikusan fejlesztik a **tesztírás - implementáció - refaktorálás** lépéseket ismételve,  amíg a kívánt programrészlet el nem készül.
+
+* **1. lépés: tesztírás**  
+Tesztvezérlet fejlesztés során először a teszteket írják meg. Ez a _tests first_ megközelítés. Ebben a fázisban olyan teszt írása a cél, amin a program elbukik, hiszen az implementáció még nem készült el.
+
+* **2. lépés: implementáció**  
+A követekző fázisban a tesztnek megfelelő kód implementálása történik. A kódot addig fejlesztik, amíg sikeresen át nem megy a teszten.
+
+* **3. lépés: refaktorálás**  
+A harmadik fázisban a kód optimalizációja, minőségének javítása történik, ezzel párhuzamosan a tesztek minőségének javítása, karbantartása is szükséges. A kód minden módosítása után futtanti kell a teljes tesztkészlet, ezzel folyamatosan biztosítva, hogy az elkészült programrészlet az elvárások szerint működjön. 
+
+Ezután ismét a tesztírás lépése következik, a ciklus folytatódik, az iterációk során kis lépésekkel egyre bővítve a tesztkészletet és a kódot.
+
+A TDD szemlélete rákényszeríti a fejlesztőket, hogy eleve a teszteknek - így az elvárt működésnek - megfelelő implementációt valósítsanak meg, ami a felhasználó/megrendelő nézőpontját tükrözi. Továbbá a tesztkészlet a program működésének dokumentációját is magában hordozza.
+
+## Viselkedésvezérelt fejlesztés
+
+A Viselkedésvezérelt fejlesztés (Behavior Driven Development - BDD) alapját a tesztvezérelt fejlesztés adja, de más fejlesztési és tesztelési módszereket is felhasznál. A BDD során a fejlesztendő szotfver (elvárt) viselkedéséből indulnak ki, és a TDD-hez hasonlóan a _tests first_ technikát alkalmazza.
+A program viselkedése axiómákkal leírható, amelyekből generálhatóak a tesztek, majd a teszteket figyelembe véve elkészíthető az implementáció.
+(Viselkedést leíró axiomákat teszteljük végig)
+
+### Gherkin
+A Gherkin egy leíró nyelv, segítségével meghatározható a program viselkedése élő, beszélt nyelven. A Gherkin meghatározott szerkezetű, egyszerű angol szöveggel (illetve 60+ nyelven) írja le  a szoftver viselkedését meghatározó axiómákat. A nyelv úgy van megtervezve, hogy nem programozók által is könnyen érthető legyen - így a szoftver viselkesését a megrendelő is megfogalmazhatja, a teszteseteket megértheti - továbbá alkalmas a program dokumentálására is. De emellett elég struktúrált is ahhoz, hogy lehetővé tegye az üzleti elvárások tömör leírását. 
+
+A Gherkin egy közös, könnyen érthető nyelvet biztosít a projekt különböző szereplői számára, amelyen a termék elvárt viselkedését megfogalmazhatják. 
+
+Gherkin nyelven elkészített leírásokat .feature kiterjesztésű állományokba mentik, melyek egy-egy jellemző, funkcionalitás leírását tartalmazzák.
+
+A "mondatok" kulcsszóval kezdődnek, amit bármilyen szöveg követhet a következő kulcsszóig.
+
+A főbb kulcsszavak:
+* **Feature**: a funcionalitás leírását vezeti be. A **Feature** kulcszó után, vele azonos  sorban a tulajdonság neve következik, majd egy opcionális leírás, a tulajdonság rövid magyarázata.
+* **Scenario**: a viselkedés, ezzel együtt a teszteset megfogalmazása, majd meghatározása lépések sorozataként. Bármennyi tesztlépés megfogalmazható, de az átláthatóság és a kifejező erő megtartása miatt érdemes néhány lépésre korlátozni.
+Szerkezete: (Adott kezdeti feltételek melett, amikor bekövetkezik egy esemény, akkor ez az elvárt eredmény)
+   * **Given** kulcsszó, amit az előfeltételek, kezdeti összefüggések megfogalmazása követ. 
+   * **When** kucsszó után egy esemény leírása következik
+   * **Then** kulcszó vezeti be az elvárt eredmény leírását.
+   * Amennyiben a lépések összetettek, **And** és **But** kulcsszavak használatával tovább részletezhetőek.
+* Scanario Outline: sok esetben egy tesztet többször akarunk futtatni, különböző bemeneti értékekkel és különböző kimeneti eredményeket várva. Ez esetben használandó ez a kulcsszó. A tesztlépések megfogalmazásakor konkrét értékek helyett változókat használunk, melyeket **<>** jel jelöl.
+* Examples: a Scenario Outline szakaszban használt változók számára ebben a részben adhatók meg konkrét értékek egy táblázat segítségével. A táblázat első sora a tesztlépések változóit tartalmazza, a következő sorok az egyes tesztesetekhez tartozó értékeiket.
+
+A Gherkin nyelven tehát könnyen érthető formában, programozási nyelv használata nélkül leírható a program viselkedése, a tesztesetek természetes nyelven való megfogalmazása. 
+Ezután kódra kell fordítani az így leírt tulajdonságokat, programozási nyelven kell leírni, hogy mit jelentenek a leírt mondatok. 
+ 
+### Cucumber
+A Cucumber egy tesztelési keretrendszer, mely lehetőséget ad viselkedés vezérelt fejlesztés illetve tesztelés alkalmazására és lehetővé teszi az automatikus funkcionális tesztelést. (?)
+(Különböző nyelveket támogat, sok platform stb.)
+
+(Ezt valahogy megfogalmazni:
+Gherkinben viselkedés given-when-then lépések formájában -> Cucumberben ragasztó kód, amelyek futtatható kódként megvalósítják, definiálják ezeket a  lépéseket.
+"Párosítás": annotáció + lépés leírása, Cu. reguláris kifejezést használ, az illeszkedő tesztesetek szerint fut az adott tesztlépés.
+ Futtató: mely feature fileokat olvassa Cu., ami vezérli a hozzá "párosított" ragasztó kódot.)...
 
 
 
