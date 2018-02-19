@@ -200,6 +200,94 @@ Gherkinben viselkedés given-when-then lépések formájában -> Cucumberben rag
 "Párosítás": annotáció + lépés leírása, Cu. reguláris kifejezést használ, az illeszkedő tesztesetek szerint fut az adott tesztlépés.
  Futtató: mely feature fileokat olvassa Cu., ami vezérli a hozzá "párosított" ragasztó kódot.)...
 
+### Nem funkcionális tesztelés 
+
+* nem a funkcionális követelmények ellenőrzése a cél
+* egyéb, minőséget befolyásoló, számszerűsíthető jellemzők, követelmények vizsgálata
+* helyes funkcionális működés mellett a program/rendszer teherbírásának, teljesítményének vizsgálata is szükséges
+
+#### Teljesítmény teszt (Performance Testing)
+
+* legelterjedtebb nem funkcionális teszt
+* Többféle teljesítménnyel kapcsolatos elvárás fogalmazható meg=>típusok: mérnek valamit egy adott terhelés mellett: terheléses teszt, stresszteszt, kitartási teszt, csúcsteszt, stb.
+tesztelés során azt szimulálják, hogyan működik a szoftver a valóságban, különböző körülmények fenállása esetén, körülmények között
+
+##### Terheléses teszt (Load testing)
+
+* hogyan viselkedik a rendszer a konkrét, várható/követelményként meghatározott terhelés mellett; 
+* pl. webszerver mennyi kérést szolgál ki x idő alatt
+
+* 1. Már létező funkcionális teszt felhasználása:
+	* pl. funkcionális tesztek TestNG-vel, ezeket futtatjuk nagy számban
+	* előny: nem kell új tesztet írni: funkcionális teszt=>terheléses teszt
+	@invocationCount: hányszor kell futtatni a metódust
+    @invocationTimeOut: az invocationCount értékének megfelelő számú futtatás összesített futási idejének maximuma, miliszekundumban megadva: ha ennél tovább tart, a teszt elbukik
+    @threadPoolSize: hány szálon fusson az @invocationCount számú hívás. pl. webszerver több kérést kell párhuzamosan kiszolgáljon
+   2. Gatling:
+   * Direkt teljesítmény teszthez fejleszve
+   * bonyi, de színes-szagos, könnyen használható teszt dokumentációt generál
+   (olvasni)
+   3. JMeter
+   * terheléses tesztelésre és teljesítmény mérésére szolgáló nyílt forráskódú Java alkalmazás
+   *  eredetileg web alkalmazások tesztelésére tervezték, de azóta bővült más teszt funkciókkal
+##### Apache JMeter
+
+* Nyílt forráskódú tesztelő eszköz, amelyet terheléses tesztelés végrehajtására és a  teljesítmény mérésére terveztek. Eredetileg webes alklamazások teszteléséhez készült, de a későbbiekben újabb tesztfunkciókkal bővült. 
+* Tisztán Java nyelven írodott, platformfüggetlen
+* alkalmazható funkcionális, terheléses, teljesítmény, regressziós stb. tesztek végrehajtására különböző alkalmazás/szerver/protokoll típusokon, mint:
+
+  * HTTP, HTTPS
+  * webszolgáltatások (webservices) protokolljai - SOAP
+  * Adatbázis JDBC illesztőprogramokon keresztül
+  * LDAP
+  * JMS
+  * e-mail protokollok: POP3, IMAP, SMTP
+  * FTP szolgáltatás 
+  
+* futtatható parancssorból, de rendelkezik egy egyszerűen használható grafikus felülettel, nem szükséges programozni a tesztek írásához.
+* A tesztterveket XML formátumban tárolja, így egy szövegszerkesztőben is létre hozhatunk teszttervet
+* lehetővé tesz több szálon történő párhuzamos tesztelést
+* felhasználható alkalmazások automatikus és funkcionális tesztelésére is.
+
+##### Működése
+A tesztelés során a rendszer valós viselkedését, működését szimuláljuk, eközben a JMeter rögzíti a választ, feldolgozza és statisztikát készít. 
+
+A szimulációban egy felhasználókból álló csoport hívásokat küld egy szervernek/alkalmazásnak. A JMeter menti a szerver válaszait, összegyűjti az adatokat, amiből statisztikát készít. Ez a folyamat többször ismétlődhet, míg a szimuláció végetér, és a JMeter jelentést készít gráfok, táblák stb. formájában.
+
+* ##### Teszt terv (Teszt Plan)
+
+A teszt elkészítése során kell határozni, mit és hogyan akarunk tesztelni, milyen lépéseket kell végrehajtania a Jmeter-nek futása során. Ehhez létre kell hozni egy teszttervet (Test Plan), ami a futattandó teszteket tartalmazza.
+
+A tesztterv kölönböző tesztelemekből épül fel:
+* Thread Group: Az alkalmazást egyidejűleg futtató felhasználókat reprezentáló elem. A teljesítmény teszteknél fontos szempont, hogy mennyire jól tudja utánozni a való életbeli használatot, terhelést. Az ehhez szükséges paraméterek beállítására itt van lehetőség. 
+   * Beállítható, hogy a JMeter a teszt futtatása során hány szálat használjon (tesztfelhasználók száma)
+   * beállítható a felfutási idő értéke (ramp-up period), az az időtartam, amennyi idő alatt az összes tesztfelhasználó/szál belép a teszt futásába. Segítségével valósághűbbé tehető a tesztelés.
+   * meghatározza az ismétlések számát.
+   * a teszt futásának kezdte és vége meghatározható, így ütemezhető a tesztelés.
+
+   A Thread Group a tesztterv kiindulási pontja, minden más elem ez alá kerül. 
+ 
+A teszt folyamatát irányító vezérlő elemek: 
+* Sampler: vezérlőelem, ami azt szimulálja, hogy mit csinál a felhasználó. Segítségével  a JMeter meghatározott kérést küld a szerver/alkalmazás felé. Főbb használható kérés típusok:
+   * HTTP Request
+   * FTP Request
+   * JDBC Request
+   * Java Request
+   * SOAP/XML Request
+   * RPC Requests
+    
+* Logikai verzélő elemek (Logic Controller): egy Thread Group-on belül szabályozza az alatta levő elemek végrehajtásának logikáját. 
+
+* Listener: a Listener elemeken keresztül tekinthejtük meg a tesztfutás eredményét. A különböző elemek eltérő formában jelenítik meg az mért adatokból készült statisztikát. pl. táblázat, gráf, log file stb. 
+
+(Legalább egy Thread Group, fentiek fába szerveződve, Thread Group alá)
+
+
+
+
+
+
+
 
 
 ## IV. Vizsgált eszközök összehasonlítása, elemzése. Konklúzió: adott feladatra melyik eszköz az ajánlott.
